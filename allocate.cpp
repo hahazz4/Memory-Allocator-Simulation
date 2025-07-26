@@ -1,5 +1,6 @@
 #include "allocate.h"
 
+char memPool[heap_size];
 Block* memList = nullptr; //setting pointer to the start of the heap
 
 //Init. the memory
@@ -16,6 +17,8 @@ void *simMalloc(size_t size){
     while (curr != nullptr){
         //Check if the block is free for allocation, and if the current size of the block is big enough
         if (curr -> size >= size && curr -> status == true){
+            if 
+            
             curr -> status = false;
             return (void*)(curr + 1); //returning the pointer of an unknown data type back to user, and moving to the next memory after Block header
         }
@@ -39,7 +42,7 @@ void printMem(){
     Block* curr = memList;
     int i = 0;
     while (curr != nullptr){
-        cout << "Block " << i++ << "| " << "Size: " << curr -> size << "| " << "Status: " << (curr -> status ? "Free" : "Allocated") << "\n";
+        cout << "Block " << i++ << " || " << "Size: " << curr -> size << " | " << "Status: " << (curr -> status ? "Free" : "Allocated") << " ||\n";
         curr = curr -> next;
     }
 }
