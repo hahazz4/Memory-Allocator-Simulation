@@ -37,7 +37,7 @@ void *simMalloc(size_t size){
         }
         curr = curr -> next;
     }
-    
+
     //Once the exit condition of the while loop is met that means no Block found, return a null pointer
     return nullptr;
 }
@@ -49,6 +49,25 @@ void simFree(void* ptr){
     
     Block* header = ((Block*) ptr) - 1; //changing the cast (void*) back to (Block*) and moves back Block to metadata
     header -> status = true; //it is now free
+
+    mergeBlocks();
+}
+
+//Merges free blocks to others
+void mergeBlocks(){
+    Block* curr = memList;
+    //check current block and its neighbour exists
+    while (curr != nullptr && curr -> next != nullptr){
+        if (curr -> status == true && curr -> next -> status == true){
+            curr -> size = curr -> size + curr -> next -> size + sizeof(Block);
+            curr -> next = curr -> next -> next;
+        }
+
+        //If there is no chain of free blocks (a free block after a free block..) move to next block
+        else
+            curr = curr -> next;
+    }
+
 }
 
 //Printing the data on console

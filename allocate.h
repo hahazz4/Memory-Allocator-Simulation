@@ -16,4 +16,5 @@ extern char memPool[heap_size];
 void initMem();
 void *simMalloc(size_t size);
 void simFree(void* ptr);
+void mergeBlocks();
 void printMem();
